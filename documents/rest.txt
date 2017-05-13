@@ -1,0 +1,47 @@
+REST INTERFACES
+
+
+1. Doctor
+GET http://localhost:8080/doctors/{lastName}/{firstName}?withPhoto={withPhoto}
+
+Examples:
+Existing doctor: http://localhost:8080/doctors/hadley/remy
+                 http://localhost:8080/doctors/hadley/remy?withPhoto=true
+                 http://localhost:8080/doctors/hadley/remy?withPhoto=false
+                 http://localhost:8080/doctors/hadley/remy?withPhoto=nonsense
+                 http://localhost:8080/doctors/hadley/remy
+
+Two doctors with the same name: http://localhost:8080/doctors/smith/john
+                                http://localhost:8080/doctors/smith/john?withPhoto=TRue
+
+Non-Existing doctor: http://localhost:8080/doctors/doc1/doc2
+
+
+2. Patient 's doctors
+GET http://localhost:8080/patients/{patientId}/doctors/
+
+Examples:
+One doctor:     http://localhost:8080/patients/25061984KP52/doctors/
+Many doctors:   http://localhost:8080/patients/12111988K45/doctors/
+No doctors:     http://localhost:8080/patients/pid/doctors/
+
+
+3. Patient 's HeartRates
+3a. Over a single date and different times
+
+GET http://localhost:8080/patients/{patientId}/heartrates/date/{date}
+
+Examples:
+Single day:          http://localhost:8080/patients/02041985S49/heartrates/date/2016-04-26
+Single day:          http://localhost:8080/patients/02041985S49/heartrates/date/2016-04-26?fromTime=00:00&toTime=23:59
+One day, some hours: http://localhost:8080/patients/02041985S49/heartrates/date/2016-04-26?fromTime=11:55&toTime=14:05
+No data:             http://localhost:8080/patients/02041985S49/heartrates/date/2016-04-29
+
+3b. Over different dates
+
+GET patients/{patientId}/heartrates/dates/{from}/{to}
+
+Examples:
+Some days:           http://localhost:8080/patients/02041985S49/heartrates/dates/2016-04-24/2016-04-25
+Single day:          http://localhost:8080/patients/02041985S49/heartrates/dates/2016-04-25/2016-04-25
+
